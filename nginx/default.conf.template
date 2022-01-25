@@ -1,0 +1,18 @@
+
+server {
+    listen      ${SERVER_PORT};
+    server_name ${SERVER_NAME};
+    root        ${DOCUMENT_ROOT};
+    index       index.php index.html index.htm;
+
+   location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass ${PHP_CONTAINER_NAME}:9000;
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+}
