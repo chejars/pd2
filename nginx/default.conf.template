@@ -4,6 +4,7 @@ server {
     server_name ${SERVER_NAME};
     root        ${DOCUMENT_ROOT};
     index       index.php index.html index.htm;
+    client_max_body_size 8M;
 
    location ~ \.php$ {
         try_files $uri =404;

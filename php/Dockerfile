@@ -12,10 +12,14 @@ RUN apt-get update \
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-RUN sed -i -e 's/upload_max_filesize = 2M/upload_max_filesize = 8M/' "$PHP_INI_DIR/php.ini"
+RUN sed -i -e 's/upload_max_filesize = 3M/upload_max_filesize = 8M/' "$PHP_INI_DIR/php.ini"
 RUN sed -i -e 's/;date.timezone =/date.timezone = "Europe\/Riga"/' "$PHP_INI_DIR/php.ini"
 RUN sed -i -e 's/;date.default_latitude = 31.7667/date.default_latitude = 56.9514/' "$PHP_INI_DIR/php.ini"
 RUN sed -i -e 's/;date.default_longitude = 35.2333/date.default_longitude = 24.1131/' "$PHP_INI_DIR/php.ini"
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs
 
 # Expose port
 EXPOSE 9000
