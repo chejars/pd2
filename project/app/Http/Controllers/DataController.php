@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Game;
 
 class DataController extends Controller
 {
@@ -38,5 +39,36 @@ class DataController extends Controller
         ->take(3)
         ->get();
         return $books;
+    }
+
+    public function getTopGames()
+    {
+        $game = Game::where('display', true)
+        ->inRandomOrder()
+        ->take(3)
+        ->get();
+        return $game;
+    }
+    // Metode atgriež izvēlēto Game ierakstu, ja tas ir publicēts
+    public function getGame(Game $game)
+    {
+        $selectedGame = Game::where([
+            'id' => $game->id,
+            'display' => true,
+        ])
+        ->firstOrFail();
+        return $selectedGame;
+    }
+
+    // Metode atgriež 3 publicētus Game ierakstus nejaušā secībā,
+    // izņemot izvēlēto Game ierakstu
+    public function getRelatedGames(Game $game)
+    {
+        $games = Game::where('display', true)
+        ->where('id', '<>', $game->id)
+        ->inRandomOrder()
+        ->take(3)
+        ->get();
+        return $games;
     }
 }

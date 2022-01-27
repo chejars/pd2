@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\DataController;
 /*
@@ -28,12 +28,20 @@ Route::post('/authors/patch/{author}', [AuthorController::class, 'patch']);
 Route::post('/authors/delete/{author}', [AuthorController::class, 'delete']);
 
 // Book routes
-Route::get('/books', [BookController::class, 'list']);
-Route::get('/books/create', [BookController::class, 'create']);
-Route::post('/books/put', [BookController::class, 'put']);
-Route::get('/books/update/{book}', [BookController::class, 'update']);
-Route::post('/books/patch/{book}', [BookController::class, 'patch']);
-Route::post('/books/delete/{book}', [BookController::class, 'delete']);
+Route::get('/books', [GameController::class, 'list']);
+Route::get('/books/create', [GameController::class, 'create']);
+Route::post('/books/put', [GameController::class, 'put']);
+Route::get('/books/update/{book}', [GameController::class, 'update']);
+Route::post('/books/patch/{book}', [GameController::class, 'patch']);
+Route::post('/books/delete/{book}', [GameController::class, 'delete']);
+
+// Game routes
+Route::get('/games', [GameController::class, 'list']);
+Route::get('/games/create', [GameController::class, 'create']);
+Route::post('/games/put', [GameController::class, 'put']);
+Route::get('/games/update/{game}', [GameController::class, 'update']);
+Route::post('/games/patch/{game}', [GameController::class, 'patch']);
+Route::post('/games/delete/{game}', [GameController::class, 'delete']);
 
 // Auth routes
 Route::get('/login', [AuthorizationController::class, 'login'])->name('login');

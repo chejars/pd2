@@ -22,7 +22,7 @@ class AuthorizationController extends Controller
         
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('books');
+            return redirect('authors');
         }
 
         return back()->withErrors([
